@@ -1,0 +1,112 @@
+<div class="admin-base">
+  <div class="class-header">
+    Customer Management
+  </div>
+  <div class="card-body">
+      <div class="row">
+          <div class="col-md-2">
+              -------
+          </div>
+      </div>
+      <div class="row">
+          <div class="col-md-4">
+              <h5>Customer Management</h5>
+          </div>
+      </div>
+      <table class="table">
+          <thead>
+              <tr>
+                  <div class="row mt-4">
+                      <div class="col-md-2">
+                          Select Date:
+                      </div>
+                      <div class="col-md-2">
+                        <form class="form-inline">
+                          <div class="form-group">
+                            <div class="input-group">
+                              <input class="form-control" placeholder="yyyy-mm-dd"
+                                     name="dp" [(ngModel)]="model" ngbDatepicker #d="ngbDatepicker">
+                              <div class="input-group-append">
+                                <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button"></button>
+                              </div>
+                            </div>
+                          </div>
+                        </form>
+                      </div>                      
+                  </div>
+              </tr>
+              <tr>
+                <div class="row mt-4">
+                  <div class="col-md-2">
+                     <h6>Select Time</h6> 
+                  </div>
+                </div>
+              </tr>
+              <tr>
+                  <div class="row mt-4">
+                      <div class="col-md-2">
+                          From:
+                      </div>
+                      <div class="col-md-2">
+                          <select class="form-control" [(ngModel)]="ddlSelectFromHours" >                              
+                                <option *ngFor="let hour of hours" [ngValue]="hour.id" >{{hour.name}}</option>                             
+                          </select>  
+                          <!-- <input type="text" class="form-control" placeholder="Select Hours"/>     -->
+                      </div>
+                      <div class="col-md-2">
+                        <select class="form-control" [(ngModel)]="ddlSelectFromMinutes" >                              
+                          <option *ngFor="let minute of minutes" [ngValue]="minute.id" >{{minute.name}}</option>                             
+                        </select>
+                        <!-- <input type="text" class="form-control" placeholder="Select Minutes/>     -->
+                      </div>
+                  </div>
+              </tr>
+              <tr>
+                <div class="row mt-4">
+                    <div class="col-md-2">
+                        To:
+                    </div>
+                    <div class="col-md-2">
+                        <select class="form-control" [(ngModel)]="ddlSelectToHours" >                              
+                              <option *ngFor="let hour of hours" [ngValue]="hour.id" >{{hour.name}}</option>                             
+                        </select>  
+                        <!-- <input type="text" class="form-control" placeholder="Select Hours"/>     -->
+                    </div>
+                    <div class="col-md-2">
+                      <select class="form-control" [(ngModel)]="ddlSelectToMinutes" >                              
+                        <option *ngFor="let minute of minutes" [ngValue]="minute.id" >{{minute.name}}</option>                             
+                      </select>
+                      <!-- <input type="text" class="form-control" placeholder="Select Minutes/>     -->
+                    </div>
+                </div>
+            </tr>
+              <tr>
+                <div class="row mt-4"></div>
+                <div class="row mt-4">
+                  <div class="col-md-5">  
+                    <a class="btn btn-primary" (click)="cancelMails()">Cancel</a>                  
+                  </div>
+                  <div class="col-md-5">  
+                    <a class="btn btn-primary" (click)="sendMails()">Send Mails</a>                  
+                </div> 
+                </div>                                     
+              </tr>
+          </thead>
+      </table>
+  </div>
+<footer class="bg-dark text-center text-white">
+    <div class="container p-4">
+      <section class="mb-4">
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt distinctio earum
+          repellat quaerat voluptatibus placeat nam, commodi optio pariatur est quia magnam
+          eum harum corrupti dicta, aliquam sequi voluptate quas.
+        </p>
+      </section>
+    </div>
+    <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+      © 2020 Copyright:
+      <a class="text-white" href="https://github.com/HasiniSandunika">GitHub</a>
+      <p class="text-white">Designed by Hasini Sandunika</p>
+    </div>
+  </footer>
