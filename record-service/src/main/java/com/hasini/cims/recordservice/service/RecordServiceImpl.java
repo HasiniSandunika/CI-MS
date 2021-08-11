@@ -44,23 +44,19 @@ public class RecordServiceImpl implements RecordService{
         int isContacted = 0;
         Collections.reverse(records);
         for (Record record : records) {
-            int one = 1;
             String recordCustomerId = record.getCustomerId();
             int recordIsContact = record.getIsContact();
-            if (recordCustomerId == customerId && recordIsContact == 1) {
+            if ((Objects.equals(recordCustomerId, customerId)) && (recordIsContact == 1)) {
                 if(!getIsMonth(record.getDate())){
                     isContacted = 1;
                 }
                 else{
-                    isContacted = 0;
-                    recordRepository.delete(record);
+                    //isContacted = 0;
                     record.setIsContact(isContacted);
                     recordRepository.save(record);
                 }
                 break;
             }
-            System.out.println(recordCustomerId);
-            System.out.println(recordIsContact);
         }
         return isContacted;
     }
@@ -83,16 +79,12 @@ public class RecordServiceImpl implements RecordService{
             String recordCustomerId = record.getCustomerId();
             String dtoCustomerId = updateRecordDTO.getCustomerId();
             float recordLeave = record.getLeave();
-            if ((recordCustomerId==dtoCustomerId) && (recordLeave==0)) {
+            if ((Objects.equals(recordCustomerId, dtoCustomerId)) && (recordLeave==0)) {
                 record.setLeave(updateRecordDTO.getLeave());
                 updatedRecord = record;
-                recordRepository.delete(record);
                 recordRepository.save(updatedRecord);
                 break;
             }
-            System.out.println(recordCustomerId);
-            System.out.println(dtoCustomerId);
-            System.out.println(recordLeave);
         }
         return updatedRecord;
     }
@@ -101,13 +93,11 @@ public class RecordServiceImpl implements RecordService{
     public List<String> getAllFirstContacts(GetAllContactsDTO getAllContactsDTO) {
         List<Record> records = recordRepository.findAll();
         List<String> customerIds = null;
-        if(records != null){
-            for (Record record : records) {
-                if (record.getDate() == getAllContactsDTO.getDate() &&
-                        checkContact(record.getArrival(), record.getLeave(),
-                                getAllContactsDTO.getFrom(), getAllContactsDTO.getTo())) {
-                    customerIds.add(record.getCustomerId());
-                }
+        for (Record record : records) {
+            if (Objects.equals(record.getDate(), getAllContactsDTO.getDate()) &&
+                    checkContact(record.getArrival(), record.getLeave(),
+                            getAllContactsDTO.getFrom(), getAllContactsDTO.getTo())) {
+                customerIds.add(record.getCustomerId());
             }
         }
         return customerIds;
@@ -133,17 +123,15 @@ public class RecordServiceImpl implements RecordService{
     public boolean sendMailsToAllContacts(GetAllContactsDTO getAllContactsDTO){
         List<String> customerIds = getAllFirstContacts(getAllContactsDTO);
         boolean isSent = false;
-        if(customerIds!=null){
-            for (String customerId : customerIds) {
-                GetAllContactsDTO getAllContactsDTO1 = restTemplate.postForObject("http://email/services/email/"
-                        +customerId, getAllContactsDTO, GetAllContactsDTO.class);
-                if(getAllContactsDTO1 != null){
-                    isSent = true;
-                }
-                else{
-                    isSent = false;
-                    break;
-                }
+        for (String customerId : customerIds) {
+            GetAllContactsDTO getAllContactsDTO1 = restTemplate.postForObject("http://email/services/email/"
+                    +customerId, getAllContactsDTO, GetAllContactsDTO.class);
+            if(getAllContactsDTO1 != null){
+                isSent = true;
+            }
+            else{
+                isSent = false;
+                break;
             }
         }
         return isSent;

@@ -1,8 +1,8 @@
 spring:
   application:
-    name: Record
+    name: record-service
 server:
-  port: 9191
+  port: 9292
 eureka:
   client:
     register-with-eureka: true

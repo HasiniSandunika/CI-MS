@@ -5,6 +5,7 @@ import com.hasini.cims.models.customer.Customer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class EmailServiceImpl implements EmailService{
@@ -16,7 +17,7 @@ public class EmailServiceImpl implements EmailService{
         List<Customer> customers = emailRepository.findAll();
         Customer customer = null;
         for(Customer customer1: customers){
-            if(customer1.getCustomerId() == customerId){
+            if(Objects.equals(customer1.getCustomerId(), customerId)){
                 customer = customer1;
                 break;
             }
