@@ -13,6 +13,7 @@ public class EmailController {
     private EmailService emailService;
 
     @RequestMapping(value = "/{customerId}", method = RequestMethod.POST)
+    @ResponseBody
     public GetAllContactsDTO sendMail(@PathVariable String customerId,
                                   @RequestBody GetAllContactsDTO getAllContactsDTO){
         return emailService.sendMail(customerId, getAllContactsDTO);

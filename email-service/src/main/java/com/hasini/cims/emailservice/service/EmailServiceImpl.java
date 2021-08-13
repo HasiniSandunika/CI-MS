@@ -15,14 +15,14 @@ public class EmailServiceImpl implements EmailService{
 
     public String getEmilAddress(String customerId){
         List<Customer> customers = emailRepository.findAll();
-        Customer customer = null;
+        String customerEmail = null;
         for(Customer customer1: customers){
             if(Objects.equals(customer1.getCustomerId(), customerId)){
-                customer = customer1;
+                customerEmail = customer1.getEmail();
                 break;
             }
         }
-        return customer.getEmail();
+        return customerEmail;
     }
 
     public GetAllContactsDTO sendMail(String customerId, GetAllContactsDTO getAllContactsDTO){

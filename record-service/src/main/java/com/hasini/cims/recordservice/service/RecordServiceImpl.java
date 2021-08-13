@@ -51,7 +51,6 @@ public class RecordServiceImpl implements RecordService{
                     isContacted = 1;
                 }
                 else{
-                    //isContacted = 0;
                     record.setIsContact(isContacted);
                     recordRepository.save(record);
                 }
@@ -92,7 +91,7 @@ public class RecordServiceImpl implements RecordService{
     @Override
     public List<String> getAllFirstContacts(GetAllContactsDTO getAllContactsDTO) {
         List<Record> records = recordRepository.findAll();
-        List<String> customerIds = null;
+        List<String> customerIds = new ArrayList<>();
         for (Record record : records) {
             if (Objects.equals(record.getDate(), getAllContactsDTO.getDate()) &&
                     checkContact(record.getArrival(), record.getLeave(),
@@ -123,15 +122,17 @@ public class RecordServiceImpl implements RecordService{
     public boolean sendMailsToAllContacts(GetAllContactsDTO getAllContactsDTO){
         List<String> customerIds = getAllFirstContacts(getAllContactsDTO);
         boolean isSent = false;
-        for (String customerId : customerIds) {
-            GetAllContactsDTO getAllContactsDTO1 = restTemplate.postForObject("http://email/services/email/"
-                    +customerId, getAllContactsDTO, GetAllContactsDTO.class);
-            if(getAllContactsDTO1 != null){
-                isSent = true;
-            }
-            else{
-                isSent = false;
-                break;
+        if(!customerIds.isEmpty()){
+            for (String customerId : customerIds) {
+                GetAllContactsDTO getAllContactsDTO1 = restTemplate.postForObject("http://email-service/services/email/"
+                        +customerId, getAllContactsDTO, GetAllContactsDTO.class);
+                if(getAllContactsDTO1 != null){
+                    isSent = true;
+                }
+                else{
+                    isSent = false;
+                    break;
+                }
             }
         }
         return isSent;
