@@ -16,3 +16,26 @@ spring:
       naming:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
       ddl-auto: none
+
+
+  mail:
+    host: smtp.gmail.com
+    port: 25
+    username: @@@@@@@
+    password: @@@@@@@
+
+    properties:
+      mail:
+        debug: true
+        transport:
+          protocol: smtp
+        smtp:
+          auth: true
+          connectiontimeout: 5000
+          timeout: 5000
+          writetimeout: 5000
+
+          starttls:
+            enable: true
+
+
