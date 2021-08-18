@@ -15,6 +15,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
 
 @Service
 public class RecordServiceImpl implements RecordService{
@@ -73,6 +74,7 @@ public class RecordServiceImpl implements RecordService{
     @Override
     public Record updateRecord(UpdateRecordDTO updateRecordDTO) {
         List<Record> records = recordRepository.findAll();
+        Collections.reverse(records);
         Record updatedRecord = null;
         for (Record record : records) {
             String recordCustomerId = record.getCustomerId();
@@ -97,6 +99,8 @@ public class RecordServiceImpl implements RecordService{
                     checkContact(record.getArrival(), record.getLeave(),
                             getAllContactsDTO.getFrom(), getAllContactsDTO.getTo())) {
                 customerIds.add(record.getCustomerId());
+                record.setIsContact(1);
+                recordRepository.save(record);
             }
         }
         return customerIds;
@@ -120,7 +124,8 @@ public class RecordServiceImpl implements RecordService{
 
     @Override
     public boolean sendMailsToAllContacts(GetAllContactsDTO getAllContactsDTO){
-        List<String> customerIds = getAllFirstContacts(getAllContactsDTO);
+        List<String> customerIds = getAllFirstContacts(getAllContactsDTO).
+                stream().distinct().collect(Collectors.toList());
         boolean isSent = false;
         if(!customerIds.isEmpty()){
             for (String customerId : customerIds) {
@@ -143,4 +148,5 @@ public class RecordServiceImpl implements RecordService{
     RestTemplate getRestTemplate(RestTemplateBuilder restTemplateBuilder){
         return restTemplateBuilder.build();
     }
+
 }

@@ -21,16 +21,19 @@ public class RecordController {
         return recordService.findContactByCustomerId(customerId);
     }
 
+    @CrossOrigin
     @PostMapping
     public Record saveRecord(@RequestBody Record record) throws ParseException {
         return recordService.saveRecord(record);
     }
 
+    @CrossOrigin
     @PutMapping
     public Record updateRecord(@RequestBody UpdateRecordDTO updateRecordDTO){
         return recordService.updateRecord(updateRecordDTO);
     }
 
+    @CrossOrigin
     @RequestMapping(value = "/informAll", method = RequestMethod.POST)
     @ResponseBody
     public boolean sendMailsToAllContacts(@RequestBody GetAllContactsDTO getAllContactsDTO){
