@@ -1,5 +1,4 @@
-import {Component, ViewChild, ViewEncapsulation, OnInit} from '@angular/core';
-import {QrScannerComponent} from 'angular2-qrscanner';
+import {Component, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-root',

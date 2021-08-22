@@ -1,22 +1,24 @@
 <div id="container">
   <div class="d-flex vh-100 justify-content-center">
       <div class="row align-self-center">
-        <div class="row mt-4">
-          <h5>Scan QR Code:</h5>
-        </div>
-        <div class="row mt-4">
-          <div class="card mr-5" style="width:400px">
-            <div>
-              <qr-scanner
-                  [debug]="false"
-                  [canvasWidth]="720" 
-                  [canvasHeight]="720" 
-                  [stopAfterScan]="true" 
-                  [updateTime]="200"> 
-              </qr-scanner>
-            </div>
+        <div class="card mr-5" style="width:400px">
+          <div class="row mt-4">
+            <h5>Scan QR Code Arrival:</h5>
           </div>
-        </div>        
+          <div class="row mt-4">
+            <div class="card mr-5" style="width:400px">
+              <div>
+                <qr-scanner
+                    [debug]="false"
+                    [canvasWidth]="720" 
+                    [canvasHeight]="720" 
+                    [stopAfterScan]="true" 
+                    [updateTime]="200"> 
+                </qr-scanner>
+              </div>
+            </div>
+          </div> 
+        </div>
       </div>
     </div>
   </div>

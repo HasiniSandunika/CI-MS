@@ -2,20 +2,24 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
 import { NgQrScannerModule } from 'angular2-qrscanner';
-import { CustomerComponent } from './record/customer.component';
+import { ArrivalComponent } from './customer/record/arrival.component';
 import { AdminComponent } from './admin/admin.component';
 import { HomeComponent } from './home/home.component';
 import { RouterModule } from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule } from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
+import { LeaveComponent } from './customer/update/leave.component';
+import { CustomerComponent } from './customer/customer.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    CustomerComponent,
+    ArrivalComponent,
     AdminComponent,
-    HomeComponent
+    HomeComponent,
+    LeaveComponent,
+    CustomerComponent
   ],
   imports: [
     BrowserModule,
@@ -24,9 +28,11 @@ import {HttpClientModule} from '@angular/common/http';
     FormsModule,
     HttpClientModule,
     RouterModule.forRoot([
+      { path: 'home', component: HomeComponent },
       { path: 'customer', component: CustomerComponent },
       { path: 'admin', component: AdminComponent },
-      { path: 'home', component: HomeComponent },
+      { path: 'arrival', component: ArrivalComponent },
+      { path: 'leave', component: LeaveComponent },
       { path: '', redirectTo: 'home', pathMatch: 'full' }
     ])
   ],
